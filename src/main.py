@@ -8,7 +8,6 @@ logging.basicConfig(
     level=logging.INFO, 
     format="%(asctime)s - %(message)s"
 )
-logging.info("kNN Classifier Initialized")
 
 TRAIN_DATA_PATH = 'artifacts/data/play_tennis.json'
 TARGET_ATTRIBUTE_INDEX = -1
@@ -63,6 +62,8 @@ for i in range(len(data)):
     # Predict the class of the test
     prediction = classifier.predict(test_data)
     print(f"Prediction: {prediction}, Actual: {actual_label}")
+    # log the prediction
+    logging.info(f"Prediction: {prediction}, Actual: {actual_label}")
     if prediction == actual_label:
         if prediction == POSTIVE_CLASS_LABEL:
             true_positives.append(test_data)
@@ -80,6 +81,13 @@ print(f"True Positives (TP): {len(true_positives)}")
 print(f"True Negatives (TN): {len(true_negatives)}")
 print(f"False Positives (FP): {len(false_positives)}")
 print(f"False Negatives (FN): {len(false_negatives)}")
+# log confusion matrix as well
+logging.info("Confusion Matrix:")
+logging.info(f"True Positives (TP): {len(true_positives)}")
+logging.info(f"True Negatives (TN): {len(true_negatives)}")
+logging.info(f"False Positives (FP): {len(false_positives)}")
+logging.info(f"False Negatives (FN): {len(false_negatives)}")
+
 
 # Print accuracy
 accuracy = (len(true_positives) + len(true_negatives)) / len(data)
